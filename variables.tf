@@ -5,17 +5,16 @@ variable "name" {
   type        = "string"
 }
 
-variable "vpc_id" {
-  description = "The identifier of the VPC in which to create the target group."
-  type        = "string"
-}
-
 variable "task_definition" {
   description = "The family and revision (family:revision) or full ARN of the task definition that you want to run in your service."
   type        = "string"
 }
 
-# Optional parameters
+variable "target_group_arn" {
+  description = "The target group ARN"
+  type        = "string"
+  default     = ""
+}
 
 variable "cluster" {
   description = "The name of the ECS cluster to deploy the service to."
@@ -83,12 +82,12 @@ variable "health_check_matcher" {
   default     = "200-299"
 }
 
-variable "alb_listener_arn" {
-  description = "We need this to be available before the service can be created"
-  default     = ""
+variable "deployment_minimum_healthy_percent" {
+  description = "The minimumHealthyPercent represents a lower limit on the number of your service's tasks that must remain in the RUNNING state during a deployment, as a percentage of the desiredCount (rounded up to the nearest integer)."
+  default     = "100"
 }
 
-variable "alb_arn" {
-  description = "The ARN of the ALB (used to ensure the ALB exists before the target group is associated with the service, since otherwise it fails)."
-  default     = ""
+variable "deployment_maximum_percent" {
+  description = "The maximumPercent parameter represents an upper limit on the number of your service's tasks that are allowed in the RUNNING or PENDING state during a deployment, as a percentage of the desiredCount (rounded down to the nearest integer)."
+  default     = "200"
 }

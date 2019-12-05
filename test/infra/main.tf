@@ -14,50 +14,63 @@ module "target_group" {
   source = "../.."
 
   name            = "test-service"
-  vpc_id          = "test-vpc"
   task_definition = "test-taskdef"
+  target_group_arn = "some-target-group-arn"
 }
 
 module "service" {
   source = "../.."
 
   name            = "test-service"
-  vpc_id          = "test-vpc"
   task_definition = "test-taskdef"
+  target_group_arn = "some-target-group-arn"
 }
 
 module "service_with_long_name" {
   source = "../.."
 
   name            = "test-service-humptydumptysatonawallhumptydumptyhadagreatfall"
-  vpc_id          = "test-vpc"
   task_definition = "test-taskdef"
+  target_group_arn = "some-target-group-arn"
 }
 
 module "role" {
   source = "../.."
 
   name            = "test-service"
-  vpc_id          = "test-vpc"
   task_definition = "test-taskdef"
+  target_group_arn = "some-target-group-arn"
 }
 
 module "policy" {
   source = "../.."
 
   name            = "test-service"
-  vpc_id          = "test-vpc"
   task_definition = "test-taskdef"
+  target_group_arn = "some-target-group-arn"
 }
 
 module "all" {
   source = "../.."
 
   name            = "test-service"
-  vpc_id          = "test-vpc"
   task_definition = "test-taskdef"
+  target_group_arn = "some-target-group-arn"
 }
 
-output "target_group_arn" {
-  value = "${module.service.target_group_arn}"
+module "service_with_custom_min_and_max_perecent" {
+  source = "../.."
+
+  name                               = "test-service"
+  task_definition                    = "test-taskdef"
+  target_group_arn                   = "some-target-group-arn"
+  deployment_minimum_healthy_percent = "0"
+  deployment_maximum_percent         = "100"
+}
+
+module "no_target_group" {
+  source = "../.."
+
+  name            = "test-service"
+  task_definition = "test-taskdef"
 }
