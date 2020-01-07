@@ -1,0 +1,119 @@
+{
+  "resource_changes": [
+    {
+      "address": "module.no_target_group.aws_ecs_service.service_no_loadbalancer[0]",
+      "module_address": "module.no_target_group",
+      "mode": "managed",
+      "type": "aws_ecs_service",
+      "name": "service_no_loadbalancer",
+      "index": 0,
+      "provider_name": "aws",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "before": null,
+        "after": {
+          "capacity_provider_strategy": [],
+          "cluster": "default",
+          "deployment_controller": [],
+          "deployment_maximum_percent": 200,
+          "deployment_minimum_healthy_percent": 100,
+          "desired_count": 3,
+          "enable_ecs_managed_tags": false,
+          "health_check_grace_period_seconds": null,
+          "load_balancer": [],
+          "name": "test-service",
+          "network_configuration": [],
+          "ordered_placement_strategy": [
+            {
+              "field": "attribute:ecs.availability-zone",
+              "type": "spread"
+            },
+            {
+              "field": "instanceId",
+              "type": "spread"
+            }
+          ],
+          "placement_constraints": [],
+          "propagate_tags": null,
+          "scheduling_strategy": "REPLICA",
+          "service_registries": [],
+          "tags": null,
+          "task_definition": "test-taskdef"
+        },
+        "after_unknown": {
+          "capacity_provider_strategy": [],
+          "deployment_controller": [],
+          "iam_role": true,
+          "id": true,
+          "launch_type": true,
+          "load_balancer": [],
+          "network_configuration": [],
+          "ordered_placement_strategy": [
+            {},
+            {}
+          ],
+          "placement_constraints": [],
+          "placement_strategy": true,
+          "platform_version": true,
+          "service_registries": []
+        }
+      }
+    },
+    {
+      "address": "module.no_target_group.aws_iam_role.role",
+      "module_address": "module.no_target_group",
+      "mode": "managed",
+      "type": "aws_iam_role",
+      "name": "role",
+      "provider_name": "aws",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "before": null,
+        "after": {
+          "assume_role_policy": "{\n  \"Version\": \"2012-10-17\",\n  \"Statement\": [\n    {\n      \"Action\": \"sts:AssumeRole\",\n      \"Principal\": { \"Service\": \"ecs.amazonaws.com\" },\n      \"Effect\": \"Allow\"\n    }\n  ]\n}\n",
+          "description": null,
+          "force_detach_policies": false,
+          "max_session_duration": 3600,
+          "name_prefix": "test-service",
+          "path": "/",
+          "permissions_boundary": null,
+          "tags": null
+        },
+        "after_unknown": {
+          "arn": true,
+          "create_date": true,
+          "id": true,
+          "name": true,
+          "unique_id": true
+        }
+      }
+    },
+    {
+      "address": "module.no_target_group.aws_iam_role_policy.policy",
+      "module_address": "module.no_target_group",
+      "mode": "managed",
+      "type": "aws_iam_role_policy",
+      "name": "policy",
+      "provider_name": "aws",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "before": null,
+        "after": {
+          "name_prefix": "test-service",
+          "policy": "{\n  \"Version\": \"2012-10-17\",\n  \"Statement\": [\n    {\n      \"Effect\": \"Allow\",\n      \"Action\": [\n        \"ec2:AuthorizeSecurityGroupIngress\",\n        \"ec2:Describe*\",\n        \"elasticloadbalancing:DeregisterInstancesFromLoadBalancer\",\n        \"elasticloadbalancing:DeregisterTargets\",\n        \"elasticloadbalancing:Describe*\",\n        \"elasticloadbalancing:RegisterInstancesWithLoadBalancer\",\n        \"elasticloadbalancing:RegisterTargets\"\n      ],\n      \"Resource\": \"*\"\n    }\n  ]\n}\n"
+        },
+        "after_unknown": {
+          "id": true,
+          "name": true,
+          "role": true
+        }
+      }
+    }
+  ]
+}

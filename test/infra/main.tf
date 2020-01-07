@@ -1,4 +1,9 @@
+terraform {
+  required_version = ">= 0.12"
+}
+
 provider "aws" {
+  version                     = ">= 2.15"
   skip_credentials_validation = true
   skip_metadata_api_check     = true
   skip_get_ec2_platforms      = true
@@ -13,52 +18,52 @@ provider "aws" {
 module "target_group" {
   source = "../.."
 
-  name            = "test-service"
-  task_definition = "test-taskdef"
+  name             = "test-service"
+  task_definition  = "test-taskdef"
   target_group_arn = "some-target-group-arn"
 }
 
 module "service" {
   source = "../.."
 
-  name            = "test-service"
-  task_definition = "test-taskdef"
+  name             = "test-service"
+  task_definition  = "test-taskdef"
   target_group_arn = "some-target-group-arn"
 }
 
 module "service_with_long_name" {
   source = "../.."
 
-  name            = "test-service-humptydumptysatonawallhumptydumptyhadagreatfall"
-  task_definition = "test-taskdef"
+  name             = "test-service-humptydumptysatonawallhumptydumptyhadagreatfall"
+  task_definition  = "test-taskdef"
   target_group_arn = "some-target-group-arn"
 }
 
 module "role" {
   source = "../.."
 
-  name            = "test-service"
-  task_definition = "test-taskdef"
+  name             = "test-service"
+  task_definition  = "test-taskdef"
   target_group_arn = "some-target-group-arn"
 }
 
 module "policy" {
   source = "../.."
 
-  name            = "test-service"
-  task_definition = "test-taskdef"
+  name             = "test-service"
+  task_definition  = "test-taskdef"
   target_group_arn = "some-target-group-arn"
 }
 
 module "all" {
   source = "../.."
 
-  name            = "test-service"
-  task_definition = "test-taskdef"
+  name             = "test-service"
+  task_definition  = "test-taskdef"
   target_group_arn = "some-target-group-arn"
 }
 
-module "service_with_custom_min_and_max_perecent" {
+module "service_with_custom_min_and_max_percent" {
   source = "../.."
 
   name                               = "test-service"
