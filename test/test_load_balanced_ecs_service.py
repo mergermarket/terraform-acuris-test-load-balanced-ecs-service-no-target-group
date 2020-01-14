@@ -53,24 +53,6 @@ class TestCreateTaskdef(unittest.TestCase):
         self.assert_resource_changes_action(resource_changes, 'create', 3)
         self.assert_resource_changes('create_ecs_service', resource_changes)
 
-    def test_create_role(self):
-        # Given When
-        check_call([
-            'terraform',
-            'plan',
-            '-out=plan.out',
-            '-no-color',
-            '-target=module.role',
-            'test/infra'
-        ])
-
-        resource_changes = self.get_resource_changes()
-
-        # Then
-        assert len(resource_changes) == 3
-        self.assert_resource_changes_action(resource_changes, 'create', 3)
-        self.assert_resource_changes('create_role', resource_changes)
-
     def test_create_service_with_long_name(self):
         # Given When
         check_call([
@@ -90,24 +72,6 @@ class TestCreateTaskdef(unittest.TestCase):
         self.assert_resource_changes(
             'create_service_with_long_name', resource_changes)
 
-    def test_create_policy(self):
-        # Given When
-        check_call([
-            'terraform',
-            'plan',
-            '-out=plan.out',
-            '-no-color',
-            '-target=module.policy',
-            'test/infra'
-        ])
-
-        resource_changes = self.get_resource_changes()
-
-        # Then
-        assert len(resource_changes) == 3
-        self.assert_resource_changes_action(resource_changes, 'create', 3)
-        self.assert_resource_changes('create_policy', resource_changes)
-
     def test_min_and_max_percent(self):
         # Given When
         check_call([
@@ -125,23 +89,6 @@ class TestCreateTaskdef(unittest.TestCase):
         assert len(resource_changes) == 3
         self.assert_resource_changes_action(resource_changes, 'create', 3)
         self.assert_resource_changes('min_and_max_percent', resource_changes)
-
-    def test_correct_number_of_resources(self):
-        # Given When
-        check_call([
-            'terraform',
-            'plan',
-            '-out=plan.out',
-            '-no-color',
-            '-target=module.all',
-            'test/infra'
-        ])
-
-        resource_changes = self.get_resource_changes()
-
-        # Then
-        assert len(resource_changes) == 3
-        self.assert_resource_changes_action(resource_changes, 'create', 3)
 
     def test_no_target_group(self):
         # Given When
