@@ -20,7 +20,7 @@ module "service" {
 
   name             = "test-service"
   task_definition  = "test-taskdef"
-  target_group_arn = "some-target-group-arn"
+  target_group_arn = "arn:aws:elasticloadbalancing:eu-west-1:123456789012:targetgroup/test-service/1234abcd123456ba1"
 }
 
 module "service_with_long_name" {
@@ -28,7 +28,7 @@ module "service_with_long_name" {
 
   name             = "test-service-humptydumptysatonawallhumptydumptyhadagreatfall"
   task_definition  = "test-taskdef"
-  target_group_arn = "some-target-group-arn"
+  target_group_arn = "arn:aws:elasticloadbalancing:eu-west-1:123456789012:targetgroup/test-service/1234abcd123456ba1"
 }
 
 module "service_with_custom_min_and_max_percent" {
@@ -36,7 +36,7 @@ module "service_with_custom_min_and_max_percent" {
 
   name                               = "test-service"
   task_definition                    = "test-taskdef"
-  target_group_arn                   = "some-target-group-arn"
+  target_group_arn                   = "arn:aws:elasticloadbalancing:eu-west-1:123456789012:targetgroup/test-service/1234abcd123456ba1"
   deployment_minimum_healthy_percent = "0"
   deployment_maximum_percent         = "100"
 }

@@ -27,7 +27,7 @@
               "container_name": "app",
               "container_port": 8000,
               "elb_name": "",
-              "target_group_arn": "some-target-group-arn"
+              "target_group_arn": "arn:aws:elasticloadbalancing:eu-west-1:123456789012:targetgroup/test-service/1234abcd123456ba1"
             }
           ],
           "name": "test-service-humptydumptysatonawallhumptydumptyhadagreatfall",
