@@ -1,10 +1,7 @@
 import json
-import os
 import unittest
 
 from subprocess import check_call, check_output
-
-cwd = os.getcwd()
 
 
 class TestCreateTaskdef(unittest.TestCase):
