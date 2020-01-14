@@ -1,13 +1,14 @@
-# tf\_load\_balanced\_ecs\_service
+# terraform-acuris-load-balanced-ecs-service-no-target-group
 
-[![Build Status](https://travis-ci.org/mergermarket/tf_load_balanced_ecs_service.svg?branch=master)](https://travis-ci.org/mergermarket/tf_load_balanced_ecs_service)
+[![Build Status](https://travis-ci.org/mergermarket/terraform-acuris-load-balanced-ecs-service-no-target-group.svg?branch=master)](https://travis-ci.org/mergermarket/terraform-acuris-load-balanced-ecs-service-no-target-group)
 
 This module creates an ECS service with resources neccessary to plug into an Application Load Balancer (service role & policy and target group).
 
 ## Usage
 
     module "service" {
-        source = "github.com/mergermarket/tf_load_balanced_ecs_service"
+        source = "mergermarket/load-balanced-ecs-service-no-target-group/acuris"
+        version = "2.0.0"
         
         cluster     = "default"
         taskdef_arn = "..."
