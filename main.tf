@@ -21,8 +21,12 @@ resource "aws_ecs_service" "service" {
   }
 
   ordered_placement_strategy {
-    type  = "spread"
-    field = "instanceId"
+    type  = "binpack"
+    field = "cpu"
+  }
+  
+  placement_constraints {
+    type = "distinctInstance"
   }
 
   lifecycle {
@@ -46,8 +50,12 @@ resource "aws_ecs_service" "service_no_loadbalancer" {
   }
 
   ordered_placement_strategy {
-    type  = "spread"
-    field = "instanceId"
+    type  = "binpack"
+    field = "cpu"
+  }
+  
+  placement_constraints {
+    type = "distinctInstance"
   }
 }
 
