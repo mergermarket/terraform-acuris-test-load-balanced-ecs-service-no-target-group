@@ -21,6 +21,7 @@
           "deployment_minimum_healthy_percent": 100,
           "desired_count": 3,
           "enable_ecs_managed_tags": false,
+          "force_new_deployment": null,
           "health_check_grace_period_seconds": null,
           "load_balancer": [
             {
@@ -42,12 +43,19 @@
               "type": "spread"
             }
           ],
-          "placement_constraints": [],
+          "placement_constraints": [
+            {
+              "expression": "agentConnected == true",
+              "type": "memberOf"
+            }
+          ],
           "propagate_tags": null,
           "scheduling_strategy": "REPLICA",
           "service_registries": [],
           "tags": null,
-          "task_definition": "test-taskdef"
+          "task_definition": "test-taskdef",
+          "timeouts": null,
+          "wait_for_steady_state": false
         },
         "after_unknown": {
           "capacity_provider_strategy": [],
@@ -63,8 +71,7 @@
             {},
             {}
           ],
-          "placement_constraints": [],
-          "placement_strategy": true,
+          "placement_constraints": [{}],
           "platform_version": true,
           "service_registries": []
         }

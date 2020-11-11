@@ -19,14 +19,15 @@ resource "aws_ecs_service" "service" {
     type  = "spread"
     field = "attribute:ecs.availability-zone"
   }
-
-  ordered_placement_strategy {
-    type  = "binpack"
-    field = "cpu"
-  }
   
+  ordered_placement_strategy {
+    type  = lower(var.distinct_task_placement) == "true" ? "binpack" : "spread"
+    field = lower(var.distinct_task_placement) == "true" ? "cpu" : "instanceId"
+  }
+
   placement_constraints {
-    type = "distinctInstance"
+    type = lower(var.distinct_task_placement) == "true" ? "distinctInstance" : "memberOf"
+    expression = lower(var.distinct_task_placement) == "true" ? "" : "agentConnected == true"
   }
 
   lifecycle {
@@ -48,14 +49,15 @@ resource "aws_ecs_service" "service_no_loadbalancer" {
     type  = "spread"
     field = "attribute:ecs.availability-zone"
   }
-
-  ordered_placement_strategy {
-    type  = "binpack"
-    field = "cpu"
-  }
   
+  ordered_placement_strategy {
+    type  = lower(var.distinct_task_placement) == "true" ? "binpack" : "spread"
+    field = lower(var.distinct_task_placement) == "true" ? "cpu" : "instanceId"
+  }
+
   placement_constraints {
-    type = "distinctInstance"
+    type = lower(var.distinct_task_placement) == "true" ? "distinctInstance" : "memberOf"
+    expression = lower(var.distinct_task_placement) == "true" ? "" : "agentConnected == true"
   }
 }
 
