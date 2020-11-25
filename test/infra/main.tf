@@ -47,3 +47,20 @@ module "no_target_group" {
   name            = "test-service"
   task_definition = "test-taskdef"
 }
+
+module "service_with_pack_and_distinct_task_placement" {
+  source = "../.."
+
+  name             = "test-service"
+  task_definition  = "test-taskdef"
+  target_group_arn = "arn:aws:elasticloadbalancing:eu-west-1:123456789012:targetgroup/test-service/1234abcd123456ba1"
+  pack_and_distinct = "true"
+}
+
+module "no_target_group_pack_and_distinct_task_placement" {
+  source = "../.."
+
+  name             = "test-service"
+  task_definition  = "test-taskdef"
+  pack_and_distinct = "true"
+}

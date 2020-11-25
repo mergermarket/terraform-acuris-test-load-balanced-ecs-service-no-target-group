@@ -1,8 +1,8 @@
 {
   "resource_changes": [
     {
-      "address": "module.service_with_long_name.aws_ecs_service.service[0]",
-      "module_address": "module.service_with_long_name",
+      "address": "module.service_with_pack_and_distinct_task_placement.aws_ecs_service.service[0]",
+      "module_address": "module.service_with_pack_and_distinct_task_placement",
       "mode": "managed",
       "type": "aws_ecs_service",
       "name": "service",
@@ -31,7 +31,7 @@
               "target_group_arn": "arn:aws:elasticloadbalancing:eu-west-1:123456789012:targetgroup/test-service/1234abcd123456ba1"
             }
           ],
-          "name": "test-service-humptydumptysatonawallhumptydumptyhadagreatfall",
+          "name": "test-service",
           "network_configuration": [],
           "ordered_placement_strategy": [
             {
@@ -39,14 +39,14 @@
               "type": "spread"
             },
             {
-              "field": "instanceId",
-              "type": "spread"
+              "field": "cpu",
+              "type": "binpack"
             }
           ],
           "placement_constraints": [
             {
-              "expression": "agentConnected == true",
-              "type": "memberOf"
+              "expression": "",
+              "type": "distinctInstance"
             }
           ],
           "propagate_tags": null,
@@ -56,7 +56,7 @@
           "task_definition": "test-taskdef",
           "timeouts": null,
           "wait_for_steady_state": false
-        },
+      },
         "after_unknown": {
           "capacity_provider_strategy": [],
           "deployment_controller": [],
@@ -78,8 +78,8 @@
       }
     },
     {
-      "address": "module.service_with_long_name.aws_iam_role.role",
-      "module_address": "module.service_with_long_name",
+      "address": "module.service_with_pack_and_distinct_task_placement.aws_iam_role.role",
+      "module_address": "module.service_with_pack_and_distinct_task_placement",
       "mode": "managed",
       "type": "aws_iam_role",
       "name": "role",
@@ -94,7 +94,7 @@
           "description": null,
           "force_detach_policies": false,
           "max_session_duration": 3600,
-          "name_prefix": "test-service-humptydumptysatona",
+          "name_prefix": "test-service",
           "path": "/",
           "permissions_boundary": null,
           "tags": null
@@ -109,8 +109,8 @@
       }
     },
     {
-      "address": "module.service_with_long_name.aws_iam_role_policy.policy",
-      "module_address": "module.service_with_long_name",
+      "address": "module.service_with_pack_and_distinct_task_placement.aws_iam_role_policy.policy",
+      "module_address": "module.service_with_pack_and_distinct_task_placement",
       "mode": "managed",
       "type": "aws_iam_role_policy",
       "name": "policy",
@@ -121,7 +121,7 @@
         ],
         "before": null,
         "after": {
-          "name_prefix": "test-service-humptydumptysatona",
+          "name_prefix": "test-service",
           "policy": "{\n  \"Version\": \"2012-10-17\",\n  \"Statement\": [\n    {\n      \"Effect\": \"Allow\",\n      \"Action\": [\n        \"ec2:AuthorizeSecurityGroupIngress\",\n        \"ec2:Describe*\",\n        \"elasticloadbalancing:DeregisterInstancesFromLoadBalancer\",\n        \"elasticloadbalancing:DeregisterTargets\",\n        \"elasticloadbalancing:Describe*\",\n        \"elasticloadbalancing:RegisterInstancesWithLoadBalancer\",\n        \"elasticloadbalancing:RegisterTargets\"\n      ],\n      \"Resource\": \"*\"\n    }\n  ]\n}\n"
         },
         "after_unknown": {
