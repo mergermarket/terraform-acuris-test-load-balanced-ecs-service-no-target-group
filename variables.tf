@@ -97,3 +97,15 @@ variable "pack_and_distinct" {
   type = string
   default = "false"
 }
+
+variable "network_configuration_subnets" {
+  description = "needed for network_mode awsvpc "
+  type        = list
+  default     = []
+}
+
+variable "network_configuration_security_groups" {
+  description = "needed for network_mode awsvpc "
+  type        = list
+  default     = []
+}
