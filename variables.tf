@@ -109,3 +109,9 @@ variable "network_configuration_security_groups" {
   type        = list
   default     = []
 }
+
+variable "health_check_grace_period_seconds" {
+  description = "Seconds to ignore failing load balancer health checks on newly instantiated tasks to prevent premature shutdown, up to 2147483647. Default 0."
+  type        = string
+  default     = "0"
+}

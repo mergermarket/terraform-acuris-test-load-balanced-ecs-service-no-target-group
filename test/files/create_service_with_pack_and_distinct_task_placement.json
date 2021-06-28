@@ -22,7 +22,7 @@
           "desired_count": 3,
           "enable_ecs_managed_tags": false,
           "force_new_deployment": null,
-          "health_check_grace_period_seconds": null,
+          "health_check_grace_period_seconds": 0,
           "load_balancer": [
             {
               "container_name": "app",

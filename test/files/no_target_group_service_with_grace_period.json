@@ -1,8 +1,8 @@
 {
   "resource_changes": [
     {
-      "address": "module.no_target_group.aws_ecs_service.service_no_loadbalancer[0]",
-      "module_address": "module.no_target_group",
+      "address": "module.no_target_group_service_with_grace_period.aws_ecs_service.service_no_loadbalancer[0]",
+      "module_address": "module.no_target_group_service_with_grace_period",
       "mode": "managed",
       "type": "aws_ecs_service",
       "name": "service_no_loadbalancer",
@@ -22,7 +22,7 @@
           "desired_count": 3,
           "enable_ecs_managed_tags": false,
           "force_new_deployment": null,
-          "health_check_grace_period_seconds": 0,
+          "health_check_grace_period_seconds": 15,
           "load_balancer": [],
           "name": "test-service",
           "network_configuration": [],
@@ -69,8 +69,8 @@
       }
     },
     {
-      "address": "module.no_target_group.aws_iam_role.role",
-      "module_address": "module.no_target_group",
+      "address": "module.no_target_group_service_with_grace_period.aws_iam_role.role",
+      "module_address": "module.no_target_group_service_with_grace_period",
       "mode": "managed",
       "type": "aws_iam_role",
       "name": "role",
@@ -100,8 +100,8 @@
       }
     },
     {
-      "address": "module.no_target_group.aws_iam_role_policy.policy",
-      "module_address": "module.no_target_group",
+      "address": "module.no_target_group_service_with_grace_period.aws_iam_role_policy.policy",
+      "module_address": "module.no_target_group_service_with_grace_period",
       "mode": "managed",
       "type": "aws_iam_role_policy",
       "name": "policy",

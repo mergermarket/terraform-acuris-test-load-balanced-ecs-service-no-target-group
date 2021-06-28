@@ -33,11 +33,14 @@ class TestCreateTaskdef(unittest.TestCase):
         with open(f'test/files/{testname}.json', 'r') as f:
             data = json.load(f)
 
+            # ------debugging------
             print('from_json_file******************************')
             print(data.get('resource_changes'))
             print('******************************')
             print('Terraform_output******************************')
             print(resource_changes)
+            # ----------------------
+
             assert data.get('resource_changes') == resource_changes
 
     def test_create_ecs_service(self):
@@ -131,7 +134,7 @@ class TestCreateTaskdef(unittest.TestCase):
         self.assert_resource_changes_action(resource_changes, 'create', 3)
         self.assert_resource_changes('create_service_with_pack_and_distinct_task_placement', resource_changes)
 
-    def test_pack_and_distinct_instance(self):
+    def test_no_target_group_pack_and_distinct_instance(self):
         # Given When
         check_call([
             'terraform',
@@ -148,3 +151,39 @@ class TestCreateTaskdef(unittest.TestCase):
         assert len(resource_changes) == 3
         self.assert_resource_changes_action(resource_changes, 'create', 3)
         self.assert_resource_changes('no_target_group_pack_and_distinct_task_placement', resource_changes)
+
+    def test_service_with_grace_period(self):
+        # Given When
+        check_call([
+            'terraform',
+            'plan',
+            '-out=plan.out',
+            '-no-color',
+            '-target=module.service_with_grace_period',
+            'test/infra'
+        ])
+
+        resource_changes = self.get_resource_changes()
+
+        # Then
+        assert len(resource_changes) == 3
+        self.assert_resource_changes_action(resource_changes, 'create', 3)
+        self.assert_resource_changes('create_service_with_grace_period', resource_changes)
+
+    def test_no_target_group_service_with_grace_period(self):
+        # Given When
+        check_call([
+            'terraform',
+            'plan',
+            '-out=plan.out',
+            '-no-color',
+            '-target=module.no_target_group_service_with_grace_period',
+            'test/infra'
+        ])
+
+        resource_changes = self.get_resource_changes()
+
+        # Then
+        assert len(resource_changes) == 3
+        self.assert_resource_changes_action(resource_changes, 'create', 3)
+        self.assert_resource_changes('no_target_group_service_with_grace_period', resource_changes)

@@ -64,3 +64,20 @@ module "no_target_group_pack_and_distinct_task_placement" {
   task_definition  = "test-taskdef"
   pack_and_distinct = "true"
 }
+
+module "service_with_grace_period" {
+  source = "../.."
+
+  name                              = "test-service"
+  task_definition                   = "test-taskdef"
+  target_group_arn                  = "arn:aws:elasticloadbalancing:eu-west-1:123456789012:targetgroup/test-service/1234abcd123456ba1"
+  health_check_grace_period_seconds = "15"
+}
+
+module "no_target_group_service_with_grace_period" {
+  source = "../.."
+
+  name                              = "test-service"
+  task_definition                   = "test-taskdef"
+  health_check_grace_period_seconds = "15"
+}

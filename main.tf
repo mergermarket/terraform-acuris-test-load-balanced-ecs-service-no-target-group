@@ -8,6 +8,7 @@ resource "aws_ecs_service" "service" {
   iam_role                           = aws_iam_role.role.arn
   deployment_minimum_healthy_percent = var.deployment_minimum_healthy_percent
   deployment_maximum_percent         = var.deployment_maximum_percent
+  health_check_grace_period_seconds  = var.health_check_grace_period_seconds
 
   load_balancer {
     target_group_arn = var.target_group_arn
@@ -44,6 +45,7 @@ resource "aws_ecs_service" "service_no_loadbalancer" {
   desired_count                      = var.desired_count
   deployment_minimum_healthy_percent = var.deployment_minimum_healthy_percent
   deployment_maximum_percent         = var.deployment_maximum_percent
+  health_check_grace_period_seconds  = var.health_check_grace_period_seconds
 
   ordered_placement_strategy {
     type  = "spread"
@@ -70,6 +72,7 @@ resource "aws_ecs_service" "service_for_awsvpc_no_loadbalancer" {
   desired_count                      = var.desired_count
   deployment_minimum_healthy_percent = var.deployment_minimum_healthy_percent
   deployment_maximum_percent         = var.deployment_maximum_percent
+  health_check_grace_period_seconds  = var.health_check_grace_period_seconds
 
   network_configuration {
     subnets         = var.network_configuration_subnets
