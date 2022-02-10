@@ -16,6 +16,12 @@ variable "target_group_arn" {
   default     = ""
 }
 
+variable "multiple_target_group_arns" {
+  description = "Mutiple target group ARNs to allow connection to multiple loadbalancers"
+  type        = list
+  default     = []
+}
+
 variable "cluster" {
   description = "The name of the ECS cluster to deploy the service to."
   type        = string
