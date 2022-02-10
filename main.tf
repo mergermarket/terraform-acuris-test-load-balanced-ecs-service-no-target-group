@@ -78,7 +78,7 @@ resource "aws_ecs_service" "service_multiple_loadbalancers" {
 }
 
 resource "aws_ecs_service" "service_no_loadbalancer" {
-  count = var.target_group_arn == "" && length(var.network_configuration_subnets) == 0 ? 1 : 0
+  count = var.target_group_arn == "" && length(var.network_configuration_subnets) == 0 && length(var.multiple_target_group_arns) == 0  ? 1 : 0
 
   name                               = var.name
   cluster                            = var.cluster
