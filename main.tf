@@ -32,7 +32,10 @@ resource "aws_ecs_service" "service" {
   }
 
   lifecycle {
-    create_before_destroy = true
+    create_before_destroy = true,
+    ignore_changes = [
+      capacity_provider_strategy,
+    ]
   }
 }
 
@@ -72,7 +75,10 @@ resource "aws_ecs_service" "service_multiple_loadbalancers" {
   }
 
   lifecycle {
-    create_before_destroy = true
+    create_before_destroy = true,
+    ignore_changes = [
+      capacity_provider_strategy,
+    ]
   }
 }
 
@@ -100,6 +106,12 @@ resource "aws_ecs_service" "service_no_loadbalancer" {
   placement_constraints {
     type = lower(var.pack_and_distinct) == "true" ? "distinctInstance" : "memberOf"
     expression = lower(var.pack_and_distinct) == "true" ? "" : "agentConnected == true"
+  }
+  
+  lifecycle {
+    ignore_changes = [
+      capacity_provider_strategy,
+    ]
   }
 }
 
@@ -132,5 +144,11 @@ resource "aws_ecs_service" "service_for_awsvpc_no_loadbalancer" {
   placement_constraints {
     type = lower(var.pack_and_distinct) == "true" ? "distinctInstance" : "memberOf"
     expression = lower(var.pack_and_distinct) == "true" ? "" : "agentConnected == true"
+  }
+  
+  lifecycle {
+    ignore_changes = [
+      capacity_provider_strategy,
+    ]
   }
 }
