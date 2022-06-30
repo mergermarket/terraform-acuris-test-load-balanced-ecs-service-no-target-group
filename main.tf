@@ -35,6 +35,7 @@ resource "aws_ecs_service" "service" {
     create_before_destroy = true
     ignore_changes = [
       capacity_provider_strategy,
+      ordered_placement_strategy,
     ]
   }
 }
@@ -78,6 +79,7 @@ resource "aws_ecs_service" "service_multiple_loadbalancers" {
     create_before_destroy = true
     ignore_changes = [
       capacity_provider_strategy,
+      ordered_placement_strategy,
     ]
   }
 }
@@ -111,6 +113,7 @@ resource "aws_ecs_service" "service_no_loadbalancer" {
   lifecycle {
     ignore_changes = [
       capacity_provider_strategy,
+      ordered_placement_strategy,
     ]
   }
 }
@@ -149,6 +152,7 @@ resource "aws_ecs_service" "service_for_awsvpc_no_loadbalancer" {
   lifecycle {
     ignore_changes = [
       capacity_provider_strategy,
+      ordered_placement_strategy,
     ]
   }
 }
