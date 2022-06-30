@@ -32,7 +32,7 @@ resource "aws_ecs_service" "service" {
   }
 
   lifecycle {
-    create_before_destroy = true,
+    create_before_destroy = true
     ignore_changes = [
       capacity_provider_strategy,
     ]
@@ -75,7 +75,7 @@ resource "aws_ecs_service" "service_multiple_loadbalancers" {
   }
 
   lifecycle {
-    create_before_destroy = true,
+    create_before_destroy = true
     ignore_changes = [
       capacity_provider_strategy,
     ]
