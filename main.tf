@@ -2,9 +2,9 @@
 provider "aws" {
   default_tags {
     tags = {
-      "component" = var.release["component"]
+      "component" = var.component
       "env"       = var.env
-      "team"      = var.release["team"]
+      "team"      = var.team
     }
   }
 }
