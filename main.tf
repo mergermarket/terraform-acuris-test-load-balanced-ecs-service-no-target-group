@@ -129,7 +129,6 @@ resource "aws_ecs_service" "service_no_loadbalancer" {
   }
   lifecycle {
     ignore_changes = [
-      capacity_provider_strategy,
       ordered_placement_strategy,
     ]
   }
