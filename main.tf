@@ -20,23 +20,23 @@ resource "aws_ecs_service" "service" {
     type  = "spread"
     field = "attribute:ecs.availability-zone"
   }
-  
+
   ordered_placement_strategy {
     type  = lower(var.pack_and_distinct) == "true" ? "binpack" : "spread"
     field = lower(var.pack_and_distinct) == "true" ? "cpu" : "instanceId"
   }
 
   placement_constraints {
-    type = lower(var.pack_and_distinct) == "true" ? "distinctInstance" : "memberOf"
+    type       = lower(var.pack_and_distinct) == "true" ? "distinctInstance" : "memberOf"
     expression = lower(var.pack_and_distinct) == "true" ? "" : "agentConnected == true"
   }
 
-  dynamic capacity_provider_strategy {
+  dynamic "capacity_provider_strategy" {
     for_each = var.capacity_providers
     content {
-      base = 0
+      base              = 0
       capacity_provider = capacity_provider_strategy.value["capacity_provider"]
-      weight = capacity_provider_strategy.value["weight"]
+      weight            = capacity_provider_strategy.value["weight"]
     }
   }
 
@@ -68,19 +68,19 @@ resource "aws_ecs_service" "service_multiple_loadbalancers" {
       container_port   = var.container_port
     }
   }
-  
+
   ordered_placement_strategy {
     type  = "spread"
     field = "attribute:ecs.availability-zone"
   }
-  
+
   ordered_placement_strategy {
     type  = lower(var.pack_and_distinct) == "true" ? "binpack" : "spread"
     field = lower(var.pack_and_distinct) == "true" ? "cpu" : "instanceId"
   }
 
   placement_constraints {
-    type = lower(var.pack_and_distinct) == "true" ? "distinctInstance" : "memberOf"
+    type       = lower(var.pack_and_distinct) == "true" ? "distinctInstance" : "memberOf"
     expression = lower(var.pack_and_distinct) == "true" ? "" : "agentConnected == true"
   }
 
@@ -94,7 +94,7 @@ resource "aws_ecs_service" "service_multiple_loadbalancers" {
 }
 
 resource "aws_ecs_service" "service_no_loadbalancer" {
-  count = var.target_group_arn == "" && length(var.network_configuration_subnets) == 0 && length(var.multiple_target_group_arns) == 0  ? 1 : 0
+  count = var.target_group_arn == "" && length(var.network_configuration_subnets) == 0 && length(var.multiple_target_group_arns) == 0 ? 1 : 0
 
   name                               = var.name
   cluster                            = var.cluster
@@ -108,23 +108,25 @@ resource "aws_ecs_service" "service_no_loadbalancer" {
     type  = "spread"
     field = "attribute:ecs.availability-zone"
   }
-  
+
   ordered_placement_strategy {
     type  = lower(var.pack_and_distinct) == "true" ? "binpack" : "spread"
     field = lower(var.pack_and_distinct) == "true" ? "cpu" : "instanceId"
   }
 
   placement_constraints {
-    type = lower(var.pack_and_distinct) == "true" ? "distinctInstance" : "memberOf"
+    type       = lower(var.pack_and_distinct) == "true" ? "distinctInstance" : "memberOf"
     expression = lower(var.pack_and_distinct) == "true" ? "" : "agentConnected == true"
   }
-  
-  dynamic capacity_provider_strategy {
+
+# CLUSTER PROVIDER #
+  force_new_deployment = true
+  dynamic "capacity_provider_strategy" {
     for_each = var.capacity_providers
     content {
-      base = 0
+      base              = 0
       capacity_provider = capacity_provider_strategy.value["capacity_provider"]
-      weight = capacity_provider_strategy.value["weight"]
+      weight            = capacity_provider_strategy.value["weight"]
     }
   }
   lifecycle {
@@ -132,6 +134,8 @@ resource "aws_ecs_service" "service_no_loadbalancer" {
       ordered_placement_strategy,
     ]
   }
+  # CLUSTER PROVIDER #
+  
 }
 
 resource "aws_ecs_service" "service_for_awsvpc_no_loadbalancer" {
@@ -154,17 +158,17 @@ resource "aws_ecs_service" "service_for_awsvpc_no_loadbalancer" {
     type  = "spread"
     field = "attribute:ecs.availability-zone"
   }
-  
+
   ordered_placement_strategy {
     type  = lower(var.pack_and_distinct) == "true" ? "binpack" : "spread"
     field = lower(var.pack_and_distinct) == "true" ? "cpu" : "instanceId"
   }
 
   placement_constraints {
-    type = lower(var.pack_and_distinct) == "true" ? "distinctInstance" : "memberOf"
+    type       = lower(var.pack_and_distinct) == "true" ? "distinctInstance" : "memberOf"
     expression = lower(var.pack_and_distinct) == "true" ? "" : "agentConnected == true"
   }
-  
+
   lifecycle {
     ignore_changes = [
       capacity_provider_strategy,
