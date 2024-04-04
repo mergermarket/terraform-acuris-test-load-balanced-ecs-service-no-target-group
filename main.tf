@@ -31,6 +31,15 @@ resource "aws_ecs_service" "service" {
     expression = lower(var.pack_and_distinct) == "true" ? "" : "agentConnected == true"
   }
 
+  dynamic capacity_provider_strategy {
+    for_each = var.capacity_providers
+    content {
+      base = 0
+      capacity_provider = capacity_provider_strategy.value["capacity_provider"]
+      weight = capacity_provider_strategy.value["weight"]
+    }
+  }
+
   lifecycle {
     create_before_destroy = true
     ignore_changes = [

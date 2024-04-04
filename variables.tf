@@ -121,3 +121,9 @@ variable "health_check_grace_period_seconds" {
   type        = string
   default     = "0"
 }
+
+variable "capacity_providers" {
+  description = "The capacity providers to add to the service. If the service is using the default capacity provider strategy, the service can also have one or more capacity providers specified using the capacityProviders parameter."
+  type = list
+  default = []
+}
